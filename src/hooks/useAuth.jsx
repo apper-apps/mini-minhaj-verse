@@ -1,5 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Error from "@/components/ui/Error";
+import userService from "@/services/api/userService";
 
 const AuthContext = createContext();
 
@@ -15,71 +17,54 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (googleUser) => {
+const login = async (googleUser) => {
     try {
-      // Simulate Google Sign-In response
-      const userData = {
-        id: googleUser.id || Date.now().toString(),
-        email: googleUser.email,
-        name: googleUser.name,
-        picture: googleUser.picture,
-        role: "student", // Default role
-        isApproved: false, // Requires admin approval
-        walletBalance: 0,
-        joinedAt: new Date().toISOString()
-      };
-
-      // Check if user already exists in approved users
-      const existingUsers = JSON.parse(localStorage.getItem("minhaj-users") || "[]");
-      const existingUser = existingUsers.find(u => u.email === userData.email);
+      setLoading(true);
       
+      // Check if user already exists
+      const existingUser = await userService.findByEmail(googleUser.email);
+      
+      let userData;
       if (existingUser) {
-        if (existingUser.isApproved) {
-          setUser(existingUser);
-          localStorage.setItem("minhaj-user", JSON.stringify(existingUser));
-          toast.success("Welcome back!");
-          return existingUser;
-        } else {
-          setUser(existingUser);
-          localStorage.setItem("minhaj-user", JSON.stringify(existingUser));
-          toast.info("Your account is pending approval");
-          return existingUser;
-        }
+        // Update last active time
+        userData = await userService.update(existingUser.id, {
+          lastActive: new Date().toISOString()
+        });
+      } else {
+        // Create new user
+        userData = await userService.create({
+          email: googleUser.email,
+          name: googleUser.name,
+          picture: googleUser.picture,
+          role: "student" // Default role
+        });
       }
-
-      // Add new user to pending list
-      existingUsers.push(userData);
-      localStorage.setItem("minhaj-users", JSON.stringify(existingUsers));
       
       setUser(userData);
-      localStorage.setItem("minhaj-user", JSON.stringify(userData));
-      toast.info("Account created! Awaiting admin approval.");
-      
+      localStorage.setItem('minhaj-user', JSON.stringify(userData));
+      toast.success("Welcome to Minhaj Verse!");
       return userData;
     } catch (error) {
+      console.error('Login error:', error);
       toast.error("Login failed");
-      throw error;
+      return null;
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("minhaj-user");
-    toast.success("Logged out successfully");
+    localStorage.removeItem('minhaj-user');
+    toast.info("Logged out successfully");
   };
 
-  const updateUser = (updates) => {
-    const updatedUser = { ...user, ...updates };
-    setUser(updatedUser);
-    localStorage.setItem("minhaj-user", JSON.stringify(updatedUser));
+  const updateUser = (updatedData) => {
+    if (!user) return;
     
-    // Update in users list
-    const users = JSON.parse(localStorage.getItem("minhaj-users") || "[]");
-    const userIndex = users.findIndex(u => u.id === updatedUser.id);
-    if (userIndex >= 0) {
-      users[userIndex] = updatedUser;
-      localStorage.setItem("minhaj-users", JSON.stringify(users));
-    }
+    const updatedUser = { ...user, ...updatedData };
+    setUser(updatedUser);
+    localStorage.setItem('minhaj-user', JSON.stringify(updatedUser));
   };
 
   return (

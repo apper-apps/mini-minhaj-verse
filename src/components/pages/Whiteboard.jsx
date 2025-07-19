@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
+import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
 import Card from "@/components/atoms/Card";
 import Input from "@/components/atoms/Input";
-import Loading from "@/components/ui/Loading";
-import Empty from "@/components/ui/Empty";
-import { useAuth } from "@/hooks/useAuth";
+import Button from "@/components/atoms/Button";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useAuth } from "@/hooks/useAuth";
 import whiteboardService from "@/services/api/whiteboardService";
-import { toast } from "react-toastify";
 
 const Whiteboard = () => {
   const [loading, setLoading] = useState(false);
@@ -105,10 +105,10 @@ const Whiteboard = () => {
       return;
     }
 
-    try {
+try {
       const newSession = await whiteboardService.create({
         title: sessionTitle,
-        teacherId: user.id
+        teacherId: user.Id
       });
       
       setSessions(prev => [newSession, ...prev]);
@@ -117,29 +117,32 @@ const Whiteboard = () => {
       setSessionTitle("");
       toast.success("Session created successfully!");
     } catch (error) {
+      console.error("Failed to create session:", error);
       toast.error("Failed to create session");
     }
   };
 
-  const joinSession = async (sessionId) => {
+const joinSession = async (sessionId) => {
     try {
-      const session = await whiteboardService.joinSession(sessionId, user.id);
+      const session = await whiteboardService.joinSession(sessionId, user.Id);
       setActiveSession(session);
       toast.success("Joined session successfully!");
     } catch (error) {
+      console.error("Failed to join session:", error);
       toast.error("Failed to join session");
     }
   };
 
-  const endSession = async () => {
+const endSession = async () => {
     if (!activeSession) return;
     
     try {
-      await whiteboardService.endSession(activeSession.id);
+      await whiteboardService.endSession(activeSession.Id);
       setActiveSession(null);
       loadSessions();
       toast.success("Session ended");
     } catch (error) {
+      console.error("Failed to end session:", error);
       toast.error("Failed to end session");
     }
   };
@@ -187,9 +190,9 @@ const Whiteboard = () => {
                 onAction={user?.role === "teacher" ? () => setShowCreateForm(true) : undefined}
               />
             ) : (
-              <div className="space-y-4">
+<div className="space-y-4">
                 {sessions.map((session) => (
-                  <div key={session.id} className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                  <div key={session.Id} className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-semibold text-gray-800">{session.title}</h3>
@@ -201,12 +204,12 @@ const Whiteboard = () => {
                           <span className="text-xs text-green-600 font-medium">Live</span>
                         </div>
                       </div>
-                      <Button
+<Button
                         size="sm"
-                        onClick={() => joinSession(session.id)}
-                        disabled={session.teacherId === user?.id}
-                      >
-                        {session.teacherId === user?.id ? "Your session" : t('joinSession')}
+                        onClick={() => joinSession(session.Id)}
+                        disabled={session.teacherId === user?.Id}
+>
+                        {session.teacherId === user?.Id ? "Your session" : t('joinSession')}
                       </Button>
                     </div>
                   </div>
@@ -263,8 +266,8 @@ const Whiteboard = () => {
                   <div className="flex items-center text-sm text-gray-600">
                     <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                     {activeSession.studentIds.length} participants
-                  </div>
-                  {user?.id === activeSession.teacherId && (
+</div>
+                  {user?.Id === activeSession.teacherId && (
                     <Button variant="outline" size="sm" onClick={endSession}>
                       End Session
                     </Button>

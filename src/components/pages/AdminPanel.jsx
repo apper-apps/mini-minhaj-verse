@@ -257,8 +257,8 @@ const AdminPanel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user) => (
-                      <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-50">
+{users.map((user) => (
+                      <tr key={user.Id} className="border-b border-gray-100 hover:bg-gray-50">
                         <td className="py-3 px-4">
                           <div>
                             <p className="font-medium text-gray-800">{user.name}</p>
@@ -281,12 +281,12 @@ const AdminPanel = () => {
                           </span>
                         </td>
                         <td className="py-3 px-4">
-                          {!user.isApproved && (
+{!user.isApproved && (
                             <div className="flex space-x-2">
-                              <Button size="sm" onClick={() => approveUser(user.id)}>
+                              <Button size="sm" onClick={() => approveUser(user.Id)}>
                                 Approve
-                              </Button>
-                              <Button size="sm" variant="outline" onClick={() => rejectUser(user.id)}>
+</Button>
+                              <Button size="sm" variant="outline" onClick={() => rejectUser(user.Id)}>
                                 Reject
                               </Button>
                             </div>
@@ -310,8 +310,8 @@ const AdminPanel = () => {
                 className="px-4 py-2 border border-gray-200 rounded-xl focus:border-primary-400 focus:outline-none"
               >
                 <option value="">Select User</option>
-                {users.filter(u => u.isApproved).map((user) => (
-                  <option key={user.id} value={user.id}>
+{users.filter(u => u.isApproved).map((user) => (
+                  <option key={user.Id} value={user.Id}>
                     {user.name} (${user.walletBalance || 0})
                   </option>
                 ))}
@@ -366,11 +366,11 @@ const AdminPanel = () => {
                     <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
                   </tr>
                 </thead>
-                <tbody>
+<tbody>
                   {transactions.map((transaction) => {
-                    const user = users.find(u => u.id === transaction.userId);
+                    const user = users.find(u => u.Id === transaction.userId);
                     return (
-                      <tr key={transaction.id} className="border-b border-gray-100 hover:bg-gray-50">
+                      <tr key={transaction.Id} className="border-b border-gray-100 hover:bg-gray-50">
                         <td className="py-3 px-4">
                           <p className="font-medium text-gray-800">{user?.name || 'Unknown User'}</p>
                         </td>
@@ -409,11 +409,11 @@ const AdminPanel = () => {
           {posts.length === 0 ? (
             <p className="text-gray-500 text-center py-8">No posts found</p>
           ) : (
-            <div className="space-y-4">
+<div className="space-y-4">
               {posts.map((post) => {
-                const user = users.find(u => u.id === post.userId);
+                const user = users.find(u => u.Id === post.userId);
                 return (
-                  <div key={post.id} className="p-4 border border-gray-200 rounded-xl">
+                  <div key={post.Id} className="p-4 border border-gray-200 rounded-xl">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
@@ -441,18 +441,18 @@ const AdminPanel = () => {
                       
                       <div className="flex space-x-2">
                         <Button
-                          size="sm"
-                          variant={post.isFeatured ? "primary" : "outline"}
-                          onClick={() => toggleFeaturePost(post.id)}
+variant={post.isFeatured ? "primary" : "outline"}
+                          onClick={() => toggleFeaturePost(post.Id)}
                         >
+                          <ApperIcon name="Star" size={14} className="mr-1" />
                           <ApperIcon name="Star" size={14} className="mr-1" />
                           {post.isFeatured ? 'Unfeature' : 'Feature'}
                         </Button>
                         
-                        <Button
+<Button
                           size="sm"
                           variant="outline"
-                          onClick={() => deletePost(post.id)}
+                          onClick={() => deletePost(post.Id)}
                           className="text-red-600 hover:text-red-700"
                         >
                           <ApperIcon name="Trash2" size={14} className="mr-1" />
@@ -476,8 +476,8 @@ const AdminPanel = () => {
             <p className="text-gray-500 text-center py-8">No messages found</p>
           ) : (
             <div className="space-y-4">
-              {messages.map((message) => (
-                <div key={message.id} className="p-4 border border-gray-200 rounded-xl">
+{messages.map((message) => (
+                <div key={message.Id || message.id} className="p-4 border border-gray-200 rounded-xl">
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <p className="font-medium text-gray-800">{message.userName}</p>

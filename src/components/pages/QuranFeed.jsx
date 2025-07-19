@@ -49,8 +49,8 @@ const QuranFeed = () => {
 
     try {
       setIsPosting(true);
-      const post = await postService.create({
-        userId: user.id,
+const post = await postService.create({
+        userId: user.Id,
         userName: user.name,
         content: newPost,
         ayahReference: ayahReference || null
@@ -67,18 +67,18 @@ const QuranFeed = () => {
     }
   };
 
-  const likePost = async (postId) => {
+const likePost = async (postId) => {
     try {
       const updatedPost = await postService.likePost(postId);
-      setPosts(prev => prev.map(p => p.id === postId ? updatedPost : p));
+      setPosts(prev => prev.map(p => p.Id === postId ? updatedPost : p));
     } catch (error) {
       toast.error("Failed to like post");
     }
   };
 
   const filteredPosts = posts.filter(post => {
-    if (filter === "featured") return post.isFeatured;
-    if (filter === "my") return post.userId === user?.id;
+if (filter === "featured") return post.isFeatured;
+    if (filter === "my") return post.userId === user?.Id;
     return true;
   });
 
@@ -195,9 +195,9 @@ const QuranFeed = () => {
               onAction={filter !== "all" ? () => setFilter("all") : undefined}
             />
           ) : (
-            <div className="space-y-6">
+<div className="space-y-6">
               {filteredPosts.map((post) => (
-                <Card key={post.id} className="hover:shadow-xl transition-shadow duration-300">
+                <Card key={post.Id} className="hover:shadow-xl transition-shadow duration-300">
                   {/* Post Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
@@ -238,8 +238,8 @@ const QuranFeed = () => {
                   {/* Post Actions */}
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <div className="flex items-center space-x-6">
-                      <button
-                        onClick={() => likePost(post.id)}
+<button
+                        onClick={() => likePost(post.Id)}
                         className="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors"
                       >
                         <ApperIcon name="Heart" size={16} />
@@ -256,8 +256,7 @@ const QuranFeed = () => {
                         <span className="text-sm">Share</span>
                       </button>
                     </div>
-                    
-                    {post.userId === user?.id && (
+{post.userId === user?.Id && (
                       <button className="text-gray-400 hover:text-gray-600">
                         <ApperIcon name="MoreHorizontal" size={16} />
                       </button>

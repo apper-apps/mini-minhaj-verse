@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Card from "@/components/atoms/Card";
-import Loading from "@/components/ui/Loading";
-import Empty from "@/components/ui/Empty";
-import WalletWidget from "@/components/molecules/WalletWidget";
-import { useAuth } from "@/hooks/useAuth";
+import React, { useEffect, useState } from "react";
 import { useWallet } from "@/hooks/useWallet";
-import { useLanguage } from "@/hooks/useLanguage";
 import { useNavigate } from "react-router-dom";
-import userService from "@/services/api/userService";
+import ApperIcon from "@/components/ApperIcon";
+import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import WalletWidget from "@/components/molecules/WalletWidget";
+import Card from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useAuth } from "@/hooks/useAuth";
 import postService from "@/services/api/postService";
 import whiteboardService from "@/services/api/whiteboardService";
+import userService from "@/services/api/userService";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -149,11 +149,11 @@ const Dashboard = () => {
               description="Be the first to share something!"
               actionLabel="Share a thought"
               onAction={() => navigate("/quran-feed")}
-            />
+/>
           ) : (
             <div className="space-y-4">
               {recentPosts.map((post) => (
-                <div key={post.id} className="p-4 bg-gray-50 rounded-xl">
+                <div key={post.Id} className="p-4 bg-gray-50 rounded-xl">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full flex items-center justify-center">
                       <ApperIcon name="User" size={16} className="text-white" />
@@ -202,9 +202,9 @@ const Dashboard = () => {
                 onAction={() => navigate("/whiteboard")}
               />
             ) : (
-              <div className="space-y-4">
+<div className="space-y-4">
                 {activeSessions.map((session) => (
-                  <div key={session.id} className="p-4 bg-gray-50 rounded-xl">
+                  <div key={session.Id} className="p-4 bg-gray-50 rounded-xl">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-semibold text-gray-800">{session.title}</h3>
@@ -226,9 +226,9 @@ const Dashboard = () => {
                 description="Your wallet activity will appear here"
               />
             ) : (
-              <div className="space-y-4">
+<div className="space-y-4">
                 {transactions.slice(0, 3).map((transaction) => (
-                  <div key={transaction.id} className="p-4 bg-gray-50 rounded-xl">
+                  <div key={transaction.Id} className="p-4 bg-gray-50 rounded-xl">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="font-medium text-gray-800">{transaction.description}</p>
