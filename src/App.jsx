@@ -13,7 +13,6 @@ import Dashboard from "@/components/pages/Dashboard";
 import { LanguageProvider } from "@/hooks/useLanguage";
 
 import 'react-toastify/dist/ReactToastify.css'
-
 const ProtectedRoute = ({ children }) => {
   const { user, isLoading } = useAuth();
 
@@ -56,8 +55,7 @@ const AppContent = () => {
             element={
               <ProtectedRoute>
                 <Whiteboard />
-              </ProtectedRoute>
-            }
+}
           />
           <Route
             path="/quran-feed"

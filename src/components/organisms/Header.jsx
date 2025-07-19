@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
 import LanguageSelector from "@/components/molecules/LanguageSelector";
 import UserProfile from "@/components/molecules/UserProfile";
-import { useAuth } from "@/hooks/useAuth";
+import Button from "@/components/atoms/Button";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,12 +55,12 @@ const Header = () => {
                 onClick={handleLogoClick}
                 className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
               >
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-500 rounded-xl flex items-center justify-center">
+<div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-500 rounded-xl flex items-center justify-center">
                   <ApperIcon name="GraduationCap" size={24} className="text-white" />
                 </div>
                 <div className="text-left">
                   <h1 className="text-xl font-display font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
-                    {t('appName')}
+                    Minhaj Verse – Powered by Muhammad Tahir Raza (MTRAD)
                   </h1>
                 </div>
               </button>

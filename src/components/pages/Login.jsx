@@ -57,8 +57,8 @@ const Login = () => {
             <div className="w-20 h-20 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <ApperIcon name="GraduationCap" size={40} className="text-white" />
             </div>
-            <h1 className="text-3xl font-display font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent mb-2">
-              {t('appName')}
+<h1 className="text-3xl font-display font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent mb-2">
+              Minhaj Verse – Powered by Muhammad Tahir Raza (MTRAD)
             </h1>
             <p className="text-gray-600">{t('welcome')}</p>
           </div>

@@ -3,8 +3,8 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const LanguageContext = createContext();
 
 const translations = {
-  en: {
-    appName: "Minhaj Verse",
+en: {
+    appName: "Minhaj Verse – Powered by Muhammad Tahir Raza (MTRAD)",
     dashboard: "Dashboard",
     whiteboard: "Whiteboard",
     quranFeed: "Qur'an Feed",
@@ -55,8 +55,8 @@ const translations = {
     save: "Save",
     edit: "Edit"
   },
-  ur: {
-    appName: "منہاج ورس",
+ur: {
+    appName: "منہاج ورس – محمد طاہر رضا (MTRAD) کی جانب سے",
     dashboard: "ڈیش بورڈ",
     whiteboard: "وائٹ بورڈ",
     quranFeed: "قرآن فیڈ",
@@ -107,8 +107,8 @@ const translations = {
     save: "محفوظ",
     edit: "ترمیم"
   },
-  ar: {
-    appName: "منهاج فيرس",
+ar: {
+    appName: "منهاج فيرس – مدعوم من محمد طاهر رضا (MTRAD)",
     dashboard: "لوحة القيادة",
     whiteboard: "السبورة البيضاء",
     quranFeed: "تغذية القرآن",
