@@ -50,12 +50,13 @@ const AppContent = () => {
               </ProtectedRoute>
             }
           />
-          <Route
+<Route
             path="/whiteboard"
             element={
               <ProtectedRoute>
                 <Whiteboard />
-}
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/quran-feed"
