@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Card from "@/components/atoms/Card";
-import LanguageSelector from "@/components/molecules/LanguageSelector";
-import { useAuth } from "@/hooks/useAuth";
-import { useLanguage } from "@/hooks/useLanguage";
+import { useAuth } from "@/hooks/useAuth.jsx";
 import { toast } from "react-toastify";
-
+import ApperIcon from "@/components/ApperIcon";
+import LanguageSelector from "@/components/molecules/LanguageSelector";
+import Card from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button";
+import { useLanguage } from "@/hooks/useLanguage";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login, user } = useAuth();

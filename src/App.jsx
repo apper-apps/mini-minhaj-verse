@@ -1,21 +1,23 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Header from "@/components/organisms/Header";
+import { AuthProvider, useAuth } from "@/hooks/useAuth.jsx";
 import Footer from "@/components/organisms/Footer";
-import Login from "@/components/pages/Login";
-import Dashboard from "@/components/pages/Dashboard";
+import Header from "@/components/organisms/Header";
 import Whiteboard from "@/components/pages/Whiteboard";
-import QuranFeed from "@/components/pages/QuranFeed";
 import Contact from "@/components/pages/Contact";
+import QuranFeed from "@/components/pages/QuranFeed";
+import Login from "@/components/pages/Login";
 import AdminPanel from "@/components/pages/AdminPanel";
-import { AuthProvider, useAuth } from "@/hooks/useAuth";
+import Dashboard from "@/components/pages/Dashboard";
 import { LanguageProvider } from "@/hooks/useLanguage";
 
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+import 'react-toastify/dist/ReactToastify.css'
 
-  if (loading) {
+const ProtectedRoute = ({ children }) => {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
